@@ -39,9 +39,9 @@ def main():
     
     configure_logging(Scraper.__name__.lower())
 
-    if isinstance(Scraper, (ZaraScraper, MarionnaudScraper, LafayetteScraper, PrintempsScraper)):
+    if issubclass(Scraper, (ZaraScraper, MarionnaudScraper, LafayetteScraper, PrintempsScraper)):
         driver = DummyDriver()
-    else:
+    elif issubclass(Scraper, NocibeScraper):
         driver_url = os.getenv("SELENIUM_DRIVER_URL", "http://localhost:4444")
         driver = d.get_driver(
             scraper_id="nocibe",

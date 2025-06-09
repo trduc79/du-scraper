@@ -137,7 +137,7 @@ class ZaraScraper(BaseScraper):
         )
         self._loaded_categories: set[ZaraProductCategory] = set()
         self._all_loaded_products: set[ZaraProduct] = set()
-        self._name = "Zara"
+        self._name = "zara"
 
     def _get_products_url(self, category: ZaraProductCategory):
         product_url = API_GET_PRODUCTS_TEMPLATE.format(categoryCode=category.page_no)
