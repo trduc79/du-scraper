@@ -1,0 +1,146 @@
+{
+    "4893186": {
+        "refId": "4893186",
+        "dispo": "7",
+        "pxAff": 38,
+        "pxBar": "",
+        "pxAvp": "",
+        "pxAffFormatted": "38,00&euro;",
+        "pxBarFormatted": "0,00&euro;",
+        "pxAvpFormatted": "0,00&euro;",
+        "inPanier": 0,
+        "label": "6ml",
+        "generiqueLabel": "",
+        "attributeISO": "",
+        "ordre": "47",
+        "description": null,
+        "dimension": null,
+        "merchant": {
+            "id": "1",
+            "label": "Place Des Tendances",
+            "url": null,
+            "shippings": []
+        },
+        "quantity_available": 34,
+        "stockPantin": 0,
+        "stockMp": 0,
+        "stockHaussman": 0,
+        "resaPantin": 0,
+        "resaMp": 0,
+        "resaHaussman": 0,
+        "stock": {
+            "warehouse": {
+                "haussmann": {
+                    "stock": 0,
+                    "reserved": 0
+                },
+                "pantin": {
+                    "stock": 0,
+                    "reserved": 0
+                },
+                "mp": {
+                    "stock": 0,
+                    "reserved": 0
+                }
+            },
+            "total_stock": 0,
+            "total_reserved": 0
+        }
+    },
+    "4893185": {
+        "refId": "4893185",
+        "dispo": "7",
+        "pxAff": 165,
+        "pxBar": "",
+        "pxAvp": "",
+        "pxAffFormatted": "165,00&euro;",
+        "pxBarFormatted": "0,00&euro;",
+        "pxAvpFormatted": "0,00&euro;",
+        "inPanier": 0,
+        "label": "50ml",
+        "generiqueLabel": "",
+        "attributeISO": "",
+        "ordre": "146",
+        "description": null,
+        "dimension": null,
+        "merchant": {
+            "id": "1",
+            "label": "Place Des Tendances",
+            "url": null,
+            "shippings": []
+        },
+        "quantity_available": 16,
+        "stockPantin": 0,
+        "stockMp": 0,
+        "stockHaussman": 0,
+        "resaPantin": 0,
+        "resaMp": 0,
+        "resaHaussman": 0,
+        "stock": {
+            "warehouse": {
+                "haussmann": {
+                    "stock": 0,
+                    "reserved": 0
+                },
+                "pantin": {
+                    "stock": 0,
+                    "reserved": 0
+                },
+                "mp": {
+                    "stock": 0,
+                    "reserved": 0
+                }
+            },
+            "total_stock": 0,
+            "total_reserved": 0
+        }
+    },
+    "4893184": {
+        "refId": "4893184",
+        "dispo": "7",
+        "pxAff": 240,
+        "pxBar": "",
+        "pxAvp": "",
+        "pxAffFormatted": "240,00&euro;",
+        "pxBarFormatted": "0,00&euro;",
+        "pxAvpFormatted": "0,00&euro;",
+        "inPanier": 0,
+        "": "100ml",
+        "generiqueLabel": "",
+        "attributeISO": "",
+        "ordre": "195",
+        "description": null,
+        "dimension": null,
+        "merchant": {
+            "id": "1",
+            "label": "Place Des Tendances",
+            "url": null,
+            "shippings": []
+        },
+        "quantity_available": 101,
+        "stockPantin": 0,
+        "stockMp": 0,
+        "stockHaussman": 0,
+        "resaPantin": 0,
+        "resaMp": 0,
+        "resaHaussman": 0,
+        "stock": {
+            "warehouse": {
+                "haussmann": {
+                    "stock": 0,
+                    "reserved": 0
+                },
+                "pantin": {
+                    "stock": 0,
+                    "reserved": 0
+                },
+                "mp": {
+                    "stock": 0,
+                    "reserved": 0
+                }
+            },
+            "total_stock": 0,
+            "total_reserved": 0
+        }
+    }
+}

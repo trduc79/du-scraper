@@ -1,0 +1,1 @@
+GALERY = "galerieslafayette.com"

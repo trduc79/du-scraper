@@ -1,0 +1,174 @@
+[
+    {
+        "code": "73872163",
+        "ean": "3614273185936",
+        "potentialPromotions": [],
+        "priceData": {
+            "currencyIso": "EUR",
+            "formattedValue": "84,00 €",
+            "priceType": "BUY",
+            "regularRetailPrice": {
+                "currencyIso": "EUR",
+                "formattedValue": "84,00 €",
+                "priceType": "BUY",
+                "value": 84.0
+            },
+            "value": 84.0
+        },
+        "sizeJsonLd": "",
+        "stock": {
+            "isValueRounded": false,
+            "stockLevel": 9
+        },
+        "url": "/p/replica+bubble+bath+-+eau+de+toilette+relaxante-maison+margiela/71865113/378",
+        "variantOptionQualifiers": [
+            {
+                "code": "",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                },
+                "name": "Taille",
+                "qualifier": "size",
+                "value": ""
+            },
+            {
+                "code": "",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                },
+                "name": "Teinte",
+                "qualifier": "tint",
+                "value": ""
+            },
+            {
+                "code": "27",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                },
+                "name": "Capacité",
+                "qualifier": "capacity",
+                "value": "30 ml"
+            },
+            {
+                "code": "",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                },
+                "name": "Couleur",
+                "qualifier": "color",
+                "value": ""
+            },
+            {
+                "code": "",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                },
+                "name": "Taille PDP",
+                "qualifier": "sizePdp",
+                "value": ""
+            },
+            {
+                "code": "",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                },
+                "name": "Taille marque",
+                "qualifier": "sizeBrand",
+                "value": ""
+            }
+        ],
+        "visible": true
+    },
+    {
+        "code": "71865114",
+        "ean": "3614272943384",
+        "potentialPromotions": [],
+        "priceData": {
+            "currencyIso": "EUR",
+            "formattedValue": "149,00 €",
+            "priceType": "BUY",
+            "regularRetailPrice": {
+                "currencyIso": "EUR",
+                "formattedValue": "149,00 €",
+                "priceType": "BUY",
+                "value": 149.0
+            },
+            "value": 149.0
+        },
+        "sizeJsonLd": "100 ml",
+        "stock": {
+            "isValueRounded": false,
+            "stockLevel": 18
+        },
+        "url": "/p/replica+bubble+bath+-+eau+de+toilette+relaxante-maison+margiela/71865113/378",
+        "variantOptionQualifiers": [
+            {
+                "code": "571",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                },
+                "name": "Taille",
+                "qualifier": "size",
+                "value": "100 ml"
+            },
+            {
+                "code": "",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                },
+                "name": "Teinte",
+                "qualifier": "tint",
+                "value": ""
+            },
+            {
+                "code": "5",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                },
+                "name": "Capacité",
+                "qualifier": "capacity",
+                "value": "100 ml"
+            },
+            {
+                "code": "",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                },
+                "name": "Couleur",
+                "qualifier": "color",
+                "value": ""
+            },
+            {
+                "code": "",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                },
+                "name": "Taille PDP",
+                "qualifier": "sizePdp",
+                "value": ""
+            },
+            {
+                "code": "",
+                "image": {
+                    "altText": "",
+                    "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                },
+                "name": "Taille marque",
+                "qualifier": "sizeBrand",
+                "value": ""
+            }
+        ],
+        "visible": true
+    }
+]

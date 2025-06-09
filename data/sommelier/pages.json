@@ -1,0 +1,437 @@
+{
+    "data": [
+        {
+            "name": "Still Life",
+            "id_sommelier": "HQWLJ4HEZ8",
+            "designer_name": "Olfactive Studio",
+            "id_designer": "8P156D3TAMA1WZB",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/HQWLJ4HEZ8.png",
+            "dosage": "Eau de Parfum",
+            "annee": "2011",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 48.0,
+                "RUB": 4631,
+                "USD": 58.0,
+                "GBP": 43
+            },
+            "perfume_color": "#C9A445",
+            "url_website": "olfactive-studio-still-life-eau-de-parfum",
+            "url_website_designer": "brand-olfactive-studio",
+            "is_sample": true,
+            "is_sample_ship": true
+        },
+        {
+            "name": "Bohemian Lime",
+            "id_sommelier": "SQF6E1OB6C",
+            "designer_name": "Goldfield & Banks",
+            "id_designer": "W7G68M3BSPKMAFT",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/SQF6E1OB6C.png",
+            "dosage": "Parfum",
+            "annee": "2020",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 32.0,
+                "RUB": 3087,
+                "USD": 39.0,
+                "GBP": 27.0
+            },
+            "perfume_color": "#69A443",
+            "url_website": "goldfield---banks-bohemian-lime-parfum",
+            "url_website_designer": "brand-goldfield---banks",
+            "is_sample": true,
+            "is_sample_ship": false
+        },
+        {
+            "name": "Jasmin Paradis",
+            "id_sommelier": "BJLCKSV2T5",
+            "designer_name": "\u00c9lisire",
+            "id_designer": "7D5R3EWBDQY14NQ",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/BJLCKSV2T5.png",
+            "dosage": "Extrait",
+            "annee": "2015",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 110.0,
+                "RUB": 10613,
+                "USD": 125.0,
+                "GBP": 95.0
+            },
+            "perfume_color": "#737373",
+            "url_website": "elisire-jasmin-paradis-extrait",
+            "url_website_designer": "brand-elisire",
+            "is_sample": true,
+            "is_sample_ship": true
+        },
+        {
+            "name": "Vangelis",
+            "id_sommelier": "EOBYZW3ZOG",
+            "designer_name": "Sylvaine Delacourte",
+            "id_designer": "ZWLVC0E1W86FRBX",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/EOBYZW3ZOG.png",
+            "dosage": "Eau de Parfum",
+            "annee": "2018",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 65.0,
+                "RUB": 6271,
+                "USD": 70.0,
+                "GBP": 65.0
+            },
+            "perfume_color": "#B27C41",
+            "url_website": "sylvaine-delacourte-vangelis-eau-de-parfum",
+            "url_website_designer": "brand-sylvaine-delacourte",
+            "is_sample": true,
+            "is_sample_ship": true
+        },
+        {
+            "name": "Ambre Russe",
+            "id_sommelier": "TLVUBTKN37",
+            "designer_name": "Parfum d'Empire",
+            "id_designer": "ZJ1S5QFZYLH4XM8",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/TLVUBTKN37.png",
+            "dosage": "Eau de Parfum",
+            "annee": "2005",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 120.0,
+                "RUB": 11578,
+                "USD": 139,
+                "GBP": 106
+            },
+            "perfume_color": "#C69132",
+            "url_website": "parfum-d-empire-ambre-russe-eau-de-parfum",
+            "url_website_designer": "brand-parfum-d-empire",
+            "is_sample": true,
+            "is_sample_ship": true
+        },
+        {
+            "name": "Rise",
+            "id_sommelier": "OEB3YGG5FU",
+            "designer_name": "Akro",
+            "id_designer": "BYR1B65HUMRNYA7",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/OEB3YGG5FU.png",
+            "dosage": "Eau de Parfum",
+            "annee": "2023",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 80.0,
+                "RUB": 7718,
+                "USD": 93,
+                "GBP": 71
+            },
+            "perfume_color": "#FFBA4C",
+            "url_website": "akro-rise-eau-de-parfum",
+            "url_website_designer": "brand-akro",
+            "is_sample": true,
+            "is_sample_ship": true
+        },
+        {
+            "name": "Anamcara",
+            "id_sommelier": "9DW52DIDHV",
+            "designer_name": "Parfums Dusita",
+            "id_designer": "NLYLU6AA3V082CQ",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/9DW52DIDHV.png",
+            "dosage": "Eau de Parfum",
+            "annee": "2021",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 55.0,
+                "RUB": 5306,
+                "USD": 60.0,
+                "GBP": 47.0
+            },
+            "perfume_color": "#F2C860",
+            "url_website": "parfums-dusita-anamcara-eau-de-parfum",
+            "url_website_designer": "brand-parfums-dusita",
+            "is_sample": true,
+            "is_sample_ship": true
+        },
+        {
+            "name": "Aziyad\u00e9",
+            "id_sommelier": "HZLABQ68EO",
+            "designer_name": "Parfum d'Empire",
+            "id_designer": "ZJ1S5QFZYLH4XM8",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/HZLABQ68EO.png",
+            "dosage": "Eau de Parfum",
+            "annee": "2008",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 130.0,
+                "RUB": 12542,
+                "USD": 151,
+                "GBP": 115
+            },
+            "perfume_color": "#9EA0C5",
+            "url_website": "parfum-d-empire-aziyade-eau-de-parfum",
+            "url_website_designer": "brand-parfum-d-empire",
+            "is_sample": true,
+            "is_sample_ship": true
+        },
+        {
+            "name": "Iskander",
+            "id_sommelier": "S0ESMQA7YK",
+            "designer_name": "Parfum d'Empire",
+            "id_designer": "ZJ1S5QFZYLH4XM8",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/S0ESMQA7YK.png",
+            "dosage": "Eau de Parfum",
+            "annee": "2006",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 110.0,
+                "RUB": 10613,
+                "USD": 128,
+                "GBP": 97
+            },
+            "perfume_color": "#B2BEAA",
+            "url_website": "parfum-d-empire-iskander-eau-de-parfum",
+            "url_website_designer": "brand-parfum-d-empire",
+            "is_sample": true,
+            "is_sample_ship": true
+        },
+        {
+            "name": "Electro Limonade",
+            "id_sommelier": "D5K6M1BIRN",
+            "designer_name": "L'Orchestre Parfum",
+            "id_designer": "3OOMVNNYPATRDFM",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/D5K6M1BIRN.png",
+            "dosage": "Eau de Parfum",
+            "annee": "2020",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 38.0,
+                "RUB": 3666,
+                "USD": 44,
+                "GBP": 34
+            },
+            "perfume_color": "#4552C9",
+            "url_website": "l-orchestre-parfum-electro-limonade-eau-de-parfum",
+            "url_website_designer": "brand-l-orchestre-parfum",
+            "is_sample": true,
+            "is_sample_ship": false
+        },
+        {
+            "name": "Osiris",
+            "id_sommelier": "S8J3MMGH19",
+            "designer_name": "Sylvaine Delacourte",
+            "id_designer": "ZWLVC0E1W86FRBX",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/S8J3MMGH19.png",
+            "dosage": "Eau de Parfum",
+            "annee": "2019",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 65.0,
+                "RUB": 6271,
+                "USD": 70.0,
+                "GBP": 65.0
+            },
+            "perfume_color": "#C6925B",
+            "url_website": "sylvaine-delacourte-osiris-eau-de-parfum",
+            "url_website_designer": "brand-sylvaine-delacourte",
+            "is_sample": true,
+            "is_sample_ship": true
+        },
+        {
+            "name": "Encens Asakusa",
+            "id_sommelier": "V21OY0U6H2",
+            "designer_name": "L'Orchestre Parfum",
+            "id_designer": "3OOMVNNYPATRDFM",
+            "image": "https:\/\/s3.eu-central-1.amazonaws.com\/fragrancebutler.me\/images_website\/V21OY0U6H2.png",
+            "dosage": "Eau de Parfum",
+            "annee": "2017",
+            "type": "fragrance",
+            "sexe": "women and men",
+            "min_price": {
+                "EUR": 38.0,
+                "RUB": 3666,
+                "USD": 44,
+                "GBP": 34
+            },
+            "perfume_color": "#A745C9",
+            "url_website": "l-orchestre-parfum-encens-asakusa-eau-de-parfum",
+            "url_website_designer": "brand-l-orchestre-parfum",
+            "is_sample": true,
+            "is_sample_ship": false
+        }
+    ],
+    "nbr_filter": 281,
+    "brand_list": [
+        {
+            "id_designer": "S9ULG2TOIJV8Z9G",
+            "designer_name": "19-69",
+            "select": false,
+            "order": 0
+        },
+        {
+            "id_designer": "BYR1B65HUMRNYA7",
+            "designer_name": "Akro",
+            "select": false,
+            "order": 1
+        },
+        {
+            "id_designer": "LGXM7Y6H65K2X8G",
+            "designer_name": "Art Meets Art",
+            "select": false,
+            "order": 2
+        },
+        {
+            "id_designer": "0DM5IU62LPEMJ0J",
+            "designer_name": "Atelier Materi",
+            "select": false,
+            "order": 3
+        },
+        {
+            "id_designer": "IVGS5DT7U8GXJTA",
+            "designer_name": "Binet-Papillon",
+            "select": false,
+            "order": 4
+        },
+        {
+            "id_designer": "7D5R3EWBDQY14NQ",
+            "designer_name": "\u00c9lisire",
+            "select": false,
+            "order": 5
+        },
+        {
+            "id_designer": "DSE1YZLH1GQUVZL",
+            "designer_name": "Essential Parfums",
+            "select": false,
+            "order": 6
+        },
+        {
+            "id_designer": "E38Z9E01G99KZF8",
+            "designer_name": "Frapin",
+            "select": false,
+            "order": 7
+        },
+        {
+            "id_designer": "W7G68M3BSPKMAFT",
+            "designer_name": "Goldfield & Banks",
+            "select": false,
+            "order": 8
+        },
+        {
+            "id_designer": "ZGOFNI2H0I3KPWK",
+            "designer_name": "Hellenist",
+            "select": false,
+            "order": 9
+        },
+        {
+            "id_designer": "1SB643OV24T3ROL",
+            "designer_name": "ICONOFLY",
+            "select": false,
+            "order": 10
+        },
+        {
+            "id_designer": "ULIXIBIB8VSVPG2",
+            "designer_name": "Jacques Fath",
+            "select": false,
+            "order": 11
+        },
+        {
+            "id_designer": "3OOMVNNYPATRDFM",
+            "designer_name": "L'Orchestre Parfum",
+            "select": false,
+            "order": 12
+        },
+        {
+            "id_designer": "0CNGAQQRBHC8OHS",
+            "designer_name": "Les Bains Guerbois",
+            "select": false,
+            "order": 13
+        },
+        {
+            "id_designer": "M23E8Q8XHTWBSG3",
+            "designer_name": "Liquides Imaginaires",
+            "select": false,
+            "order": 14
+        },
+        {
+            "id_designer": "MTZ594SC89496QL",
+            "designer_name": "MarieJeanne",
+            "select": false,
+            "order": 15
+        },
+        {
+            "id_designer": "8P156D3TAMA1WZB",
+            "designer_name": "Olfactive Studio",
+            "select": false,
+            "order": 16
+        },
+        {
+            "id_designer": "VXKGZJMH9QJGHF1",
+            "designer_name": "Olibanum",
+            "select": false,
+            "order": 17
+        },
+        {
+            "id_designer": "ZJ1S5QFZYLH4XM8",
+            "designer_name": "Parfum d'Empire",
+            "select": false,
+            "order": 18
+        },
+        {
+            "id_designer": "7RUD3XQDTGFYMXP",
+            "designer_name": "Parfums de Nietzsche",
+            "select": false,
+            "order": 19
+        },
+        {
+            "id_designer": "NLYLU6AA3V082CQ",
+            "designer_name": "Parfums Dusita",
+            "select": false,
+            "order": 20
+        },
+        {
+            "id_designer": "UFDI7HS151T7R1T",
+            "designer_name": "Sora Dora",
+            "select": false,
+            "order": 21
+        },
+        {
+            "id_designer": "6OAPYC4UID0YWWU",
+            "designer_name": "Sous le Manteau",
+            "select": false,
+            "order": 22
+        },
+        {
+            "id_designer": "ZWLVC0E1W86FRBX",
+            "designer_name": "Sylvaine Delacourte",
+            "select": false,
+            "order": 23
+        },
+        {
+            "id_designer": "24R4B79MZ5I1LRO",
+            "designer_name": "Ulrich Lang",
+            "select": false,
+            "order": 24
+        }
+    ],
+    "explore_no_more": false,
+    "selection_list_ids": {
+        "IDSELECT7": 82,
+        "IDSELECT11": 48,
+        "IDSELECT9": 38,
+        "IDSELECT12": 34,
+        "IDSELECT3": 34,
+        "IDSELECT5": 26,
+        "IDSELECT10": 23,
+        "IDSELECT8": 23,
+        "IDSELECT2": 21,
+        "IDSELECT4": 20,
+        "IDSELECT6": 20,
+        "IDSELECT1": 18,
+        "IDSELECT0": 13
+    }
+}

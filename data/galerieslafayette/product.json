@@ -1,0 +1,411 @@
+{
+    "ages": [
+        {
+            "code": "3",
+            "name": "Adulte"
+        }
+    ],
+    "appMobCode": "71865113",
+    "baseOptions": [],
+    "baseProduct": "71865113",
+    "brand": {
+        "code": "maison-margiela",
+        "font": "GL_BADER_COMPRESS_ET_ROBOTO",
+        "name": "Maison Margiela",
+        "webChannel": true
+    },
+    "breadcrumbs": [
+        {
+            "categoryType": "NAVIGATION",
+            "code": "clswebbea",
+            "name": "Beauté"
+        },
+        {
+            "categoryType": "NAVIGATION",
+            "code": "clswebbeanv21",
+            "name": "Parfums"
+        },
+        {
+            "categoryType": "NAVIGATION",
+            "code": "clswebbeanv21nv31",
+            "name": "Eaux de toilette"
+        },
+        {
+            "categoryType": "NAVIGATION",
+            "code": "clswebbeanv21nv31",
+            "name": "Eaux de toilette Maison Margiela"
+        }
+    ],
+    "categories": [
+        {
+            "categoryType": "NAVIGATION",
+            "code": "clswebbea",
+            "name": "Beauté"
+        },
+        {
+            "categoryType": "NAVIGATION",
+            "code": "clswebbeanv21",
+            "name": "Parfums"
+        },
+        {
+            "categoryType": "NAVIGATION",
+            "code": "clswebbeanv21nv31",
+            "name": "Eaux de toilette"
+        }
+    ],
+    "code": "71865113",
+    "composition": "947829 03 - ingredients: alcohol • parfum / fragrance • aqua / water • benzyl salicylate • ethylhexyl salicylate • butyl methoxydibenzoylmethane • benzyl alcohol • limonene • linalool • citronellol • geraniol • coumarin • citral • benzyl benzoate • ci 61570 / green 5 • ci 60730 / ext. Violet 2 (f.i.l. B242880/1).les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, vous êtes invités à lire la liste d’ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
+    "configurable": false,
+    "description": "<p>Plongez dans la mousse crépitante d'un bain chaud signé Maison Margiela et profitez de ce moment de bien-être enveloppé dans ces bulles parfumées et réconfortantes avec le nouveau parfum Bubble Bath de REPLICA.</p> <p>Une sensation apaisante s'empare de vous grâce à l'alliance entre la fraîcheur propre et enveloppante de l'accord exclusif « bulles de savon » et les notes à la fois douces et sensuelles de la noix de coco. Un vrai moment exquis « pour soi » un parfum unique et inoubliable.</p> <p>Cette fragrance vient compléter la gamme REPLICA une gamme de souvenirs olfactifs universels comme BEACH WALK, LAZY SUNDAY MORNING ou JAZZ CLUB visant à faire revivre une multitude d'histoires personnelles. Les fragrances REPLICA s'inspirent de la collection éponyme de vêtements et accessoires créée en 1994 par Maison Margiela : des pièces chinées à travers le monde,",
+    "discountFamily": "blue_point",
+    "energyInformation": {},
+    "exclusiveProduct": false,
+    "gender": {
+        "code": "2",
+        "name": "Féminin"
+    },
+    "goForGoodList": [],
+    "images": [
+        {
+            "altText": "",
+            "galleryIndex": 0,
+            "imageType": "GALLERY",
+            "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+        },
+        {
+            "altText": "",
+            "galleryIndex": 0,
+            "imageType": "GALLERY",
+            "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+        }
+    ],
+    "isMarketPlaceProduct": false,
+    "logisticFamily": {
+        "code": "N",
+        "deliveryModes": [
+            {
+                "carrier": "CE",
+                "code": "12",
+                "customerPromise": "sous 24h à 48h ouvrées",
+                "deliveryCost": {
+                    "currencyIso": "EUR",
+                    "formattedValue": "0,00 €",
+                    "priceType": "BUY",
+                    "value": 0.0
+                },
+                "description": "Retrait en magasin - Offert",
+                "name": "Retrait en magasin"
+            },
+            {
+                "carrier": "CO",
+                "code": "21",
+                "customerPromise": "sous 2 à 4 jours ouvrés",
+                "deliveryCost": {
+                    "currencyIso": "EUR",
+                    "formattedValue": "5,90 €",
+                    "priceType": "BUY",
+                    "value": 5.9
+                },
+                "description": "Livraison à domicile",
+                "minFreeShipping": {
+                    "currencyIso": "EUR",
+                    "formattedValue": "75,00 €",
+                    "priceType": "BUY",
+                    "value": 75.0
+                },
+                "name": "Livraison à domicile"
+            },
+            {
+                "carrier": "RH",
+                "carrierName": "COLISSIMO",
+                "code": "33",
+                "deliveryCost": {
+                    "currencyIso": "EUR",
+                    "formattedValue": "4,90 €",
+                    "priceType": "BUY",
+                    "value": 4.9
+                },
+                "description": "Retrait en Relais Pickup ou Bureau de Poste",
+                "minFreeShipping": {
+                    "currencyIso": "EUR",
+                    "formattedValue": "75,00 €",
+                    "priceType": "BUY",
+                    "value": 75.0
+                },
+                "name": "Retrait en Relais Pickup"
+            },
+            {
+                "carrier": "CH",
+                "code": "15",
+                "customerPromise": "sous 24h à 48h ouvrées",
+                "deliveryCost": {
+                    "currencyIso": "EUR",
+                    "formattedValue": "0,00 €",
+                    "priceType": "BUY",
+                    "value": 0.0
+                },
+                "description": "Livraison à domicile express",
+                "name": "Livraison à domicile express"
+            }
+        ],
+        "name": "Catégorie Beauté"
+    },
+    "luxury": "NO",
+    "name": "REPLICA Bubble Bath - Eau de Toilette relaxante",
+    "newProduct": false,
+    "offerType": "FULL_GL",
+    "potentialPromotions": [],
+    "price": {
+        "currencyIso": "EUR",
+        "formattedValue": "84,00 €",
+        "priceType": "FROM",
+        "regularRetailPrice": {
+            "currencyIso": "EUR",
+            "formattedValue": "84,00 €",
+            "priceType": "FROM",
+            "value": 84.0
+        },
+        "type": "REG",
+        "value": 84.0
+    },
+    "priceRange": {
+        "maxPrice": {
+            "currencyIso": "EUR",
+            "formattedValue": "149,00 €",
+            "priceType": "FROM",
+            "regularRetailPrice": {
+                "currencyIso": "EUR",
+                "formattedValue": "149,00 €",
+                "priceType": "FROM",
+                "value": 149.0
+            },
+            "value": 149.0
+        },
+        "minPrice": {
+            "currencyIso": "EUR",
+            "formattedValue": "84,00 €",
+            "priceType": "FROM",
+            "regularRetailPrice": {
+                "currencyIso": "EUR",
+                "formattedValue": "84,00 €",
+                "priceType": "FROM",
+                "value": 84.0
+            },
+            "value": 84.0
+        }
+    },
+    "productLine": "Replica",
+    "purchasable": false,
+    "sapCode": "71865113_378",
+    "stock": {
+        "isValueRounded": false,
+        "stockLevel": 0,
+        "stockLevelStatus": "outOfStock"
+    },
+    "summary": "",
+    "supCategories": [
+        {
+            "categoryType": "PRIMARY",
+            "code": "HP_BEA_S01_G01_N02",
+            "name": "Eau de toilette"
+        },
+        {
+            "categoryType": "NAVIGATION",
+            "code": "clswebbeanv21nv31",
+            "name": "Eaux de toilette"
+        },
+        {
+            "categoryType": "BRAND",
+            "code": "maison-margiela",
+            "name": "Maison Margiela"
+        },
+        {
+            "categoryType": "DISCOUNT_FAMILY",
+            "code": "PROMOTION_DIS_FAM_POINT_BLEU"
+        },
+        {
+            "categoryType": "LUXURY",
+            "code": "PROMOTION_NON_LUXE_ET_CREATEUR"
+        },
+        {
+            "categoryType": "MARKETPLACE",
+            "code": "PROMOTION_PRODUIT_NON_MARKEPLACE"
+        }
+    ],
+    "topologyIngredientProduct": "BEAUTY",
+    "url": "/p/replica+bubble+bath+-+eau+de+toilette+relaxante-maison+margiela/71865113/378",
+    "variantOptions": [
+        {
+            "code": "73872163",
+            "ean": "3614273185936",
+            "potentialPromotions": [],
+            "priceData": {
+                "currencyIso": "EUR",
+                "formattedValue": "84,00 €",
+                "priceType": "BUY",
+                "regularRetailPrice": {
+                    "currencyIso": "EUR",
+                    "formattedValue": "84,00 €",
+                    "priceType": "BUY",
+                    "value": 84.0
+                },
+                "value": 84.0
+            },
+            "sizeJsonLd": "",
+            "stock": {
+                "isValueRounded": false,
+                "stockLevel": 9
+            },
+            "url": "/p/replica+bubble+bath+-+eau+de+toilette+relaxante-maison+margiela/71865113/378",
+            "variantOptionQualifiers": [
+                {
+                    "code": "",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                    },
+                    "name": "Taille",
+                    "qualifier": "size",
+                    "value": ""
+                },
+                {
+                    "code": "",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                    },
+                    "name": "Teinte",
+                    "qualifier": "tint",
+                    "value": ""
+                },
+                {
+                    "code": "27",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                    },
+                    "name": "Capacité",
+                    "qualifier": "capacity",
+                    "value": "30 ml"
+                },
+                {
+                    "code": "",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                    },
+                    "name": "Couleur",
+                    "qualifier": "color",
+                    "value": ""
+                },
+                {
+                    "code": "",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                    },
+                    "name": "Taille PDP",
+                    "qualifier": "sizePdp",
+                    "value": ""
+                },
+                {
+                    "code": "",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/738/73872162/G_73872162_378_ZP_1.jpg"
+                    },
+                    "name": "Taille marque",
+                    "qualifier": "sizeBrand",
+                    "value": ""
+                }
+            ],
+            "visible": true
+        },
+        {
+            "code": "71865114",
+            "ean": "3614272943384",
+            "potentialPromotions": [],
+            "priceData": {
+                "currencyIso": "EUR",
+                "formattedValue": "149,00 €",
+                "priceType": "BUY",
+                "regularRetailPrice": {
+                    "currencyIso": "EUR",
+                    "formattedValue": "149,00 €",
+                    "priceType": "BUY",
+                    "value": 149.0
+                },
+                "value": 149.0
+            },
+            "sizeJsonLd": "100 ml",
+            "stock": {
+                "isValueRounded": false,
+                "stockLevel": 18
+            },
+            "url": "/p/replica+bubble+bath+-+eau+de+toilette+relaxante-maison+margiela/71865113/378",
+            "variantOptionQualifiers": [
+                {
+                    "code": "571",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                    },
+                    "name": "Taille",
+                    "qualifier": "size",
+                    "value": "100 ml"
+                },
+                {
+                    "code": "",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                    },
+                    "name": "Teinte",
+                    "qualifier": "tint",
+                    "value": ""
+                },
+                {
+                    "code": "5",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                    },
+                    "name": "Capacité",
+                    "qualifier": "capacity",
+                    "value": "100 ml"
+                },
+                {
+                    "code": "",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                    },
+                    "name": "Couleur",
+                    "qualifier": "color",
+                    "value": ""
+                },
+                {
+                    "code": "",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                    },
+                    "name": "Taille PDP",
+                    "qualifier": "sizePdp",
+                    "value": ""
+                },
+                {
+                    "code": "",
+                    "image": {
+                        "altText": "",
+                        "url": "http://static.galerieslafayette.com/media/718/71865113/G_71865113_378_ZP_1.jpg"
+                    },
+                    "name": "Taille marque",
+                    "qualifier": "sizeBrand",
+                    "value": ""
+                }
+            ],
+            "visible": true
+        }
+    ]
+}
