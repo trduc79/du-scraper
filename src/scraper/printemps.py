@@ -1,14 +1,14 @@
 import logging
 
 
-from ..typed.base import Hit, Result
-from ..typed.printemps import PrintempsPageType, PrintempsProductType
+from core.typed.base import Hit, Result
+from core.typed.printemps import PrintempsPageType, PrintempsProductType
 
-from ..file.cloud_handler import CloudHandler
-from ..utils.helper import CookiesProtocol
+from core.file.cloud_handler import CloudHandler
+from core.utils.helper import CookiesProtocol
 
 
-from .base import (
+from core.scraper.base import (
     BaseScraper,
     BaseProduct,
     BaseProductPage,

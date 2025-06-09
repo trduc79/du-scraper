@@ -30,10 +30,10 @@ from bs4 import BeautifulSoup as BS
 from selenium.webdriver.remote.webdriver import WebDriver
 
 
-from ..file.cloud_handler import CloudHandler
-from ..utils.helper import CookiesProtocol
+from core.file.cloud_handler import CloudHandler
+from core.utils.helper import CookiesProtocol
 
-from .base import BaseScraper, BaseProductPage, BaseProduct, BaseProductVariant
+from core.scraper.base import BaseScraper, BaseProductPage, BaseProduct, BaseProductVariant
 
 
 HOMEPAGE = "https://www.nocibe.fr"
@@ -76,6 +76,17 @@ class NocibeProductVariant(BaseProductVariant):
 
 
 class NocibeProduct(BaseProduct):
+    """
+    A class representing a product from Nocibe website, inheriting from BaseProduct.
+    Properties
+    ----------
+    default_variant_id : str
+        Extracts and returns the variant ID from the product URL using regex.
+        If no variant is found in the URL, returns -1.
+    link : str
+        Constructs and returns the full product URL by combining PRODUCT_BASE_URL with product ID.
+    """
+    
     @property
     def default_variant_id(self) -> str:
         match = re.search(r"/p/\d+\?variant=(\d+)", self.raw_link)
@@ -200,6 +211,18 @@ class NocibeScraper(BaseScraper):
         return -1
 
     def get_product_page(self, page_no: int):
+        """
+        Retrieves and processes a product page from Nocibe website.
+        This method fetches product information from a specified page number, extracts product details
+        like name, brand, category, and creates NocibeProduct objects for each product found.
+        Args:
+            page_no (int): The page number to retrieve products from.
+        Returns:
+            NocibeProductPage: A product page object containing all products found on the specified page.
+        Note:
+            If the page was previously loaded, it returns the cached version instead of making a new request.
+        """
+        
         if page_no in self._loaded_pages:
             logger.info("Page %s already loaded.", page_no)
             return self._loaded_pages[page_no]
@@ -240,6 +263,23 @@ class NocibeScraper(BaseScraper):
         return product_page
 
     def get_variant_info_radio_style(self, variant: BS, product: NocibeProduct = None):
+        """Extracts variant information from a radio-style product selector on Nocibe website.
+        Args:
+            variant (BS): BeautifulSoup object containing the variant HTML element
+            product (NocibeProduct, optional): Parent product object. Defaults to None.
+        Returns:
+            NocibeProductVariant: Product variant object containing extracted information including:
+                - variant_id: Unique identifier for the variant
+                - variant_name: Display name of the variant
+                - product_parent: Reference to parent product
+                - variant_price: Price value as float
+                - variant_price_unit: Currency unit of the price
+                - variant_volume: Volume value as float
+                - variant_volume_unit: Unit of volume measurement (usually 'ml')
+        Raises:
+            ValueError: If volume cannot be extracted from variant name
+        """
+        
         variant_id = variant.find_next("input", class_="radio-item__input").get("value")
         variant_name: str = variant.find_next(
             "div", class_="product-detail__variant-name"
@@ -340,6 +380,23 @@ class NocibeScraper(BaseScraper):
             return None, None
 
     def get_variant_volume(self, variant: BS):
+        """Extract volume and unit information from a product variant.
+        This method attempts to find the volume and unit of a product variant through multiple approaches:
+        1. Checks for special case "3X20 ml - Recharges"
+        2. Tries normal case extraction
+        3. Attempts to find volume in second-to-last word of variant name
+        4. Calculates volume from price per volume ratio
+        5. Falls back to extracting last numeric value from variant name
+        Args:
+            variant (BS): BeautifulSoup object containing the variant information
+        Returns:
+            tuple: A tuple containing:
+                - float: The volume value
+                - str: The volume unit (e.g., 'ml')
+        Note:
+            If no volume can be found, returns default values defined elsewhere
+        """
+        
         variant_name = self.get_variant_name(variant)
 
         if variant_name == "3X20 ml - Recharges":
@@ -426,6 +483,10 @@ class NocibeScraper(BaseScraper):
         for page in self._loaded_pages.values():
             for product in page:
                 if product.is_variants_loaded:
+                    logger.info(
+                        "Product %s already has variants loaded, skipping.",
+                        product.link,
+                    )
                     continue
                 self.get_product_variants(product)
 
