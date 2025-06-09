@@ -1,20 +1,18 @@
 import logging
 import re
 
-from selenium.webdriver.remote.webdriver import WebDriver
-
-from ..typed.zara import (
+from core.typed.zara import (
     ZaraProductType,
     ZaraCategoryProductType,
     ZaraCategoryType,
     ZaraProductType,
 )
 
-from ..file.cloud_handler import CloudHandler
-from ..utils.helper import CookiesProtocol
-from ..utils.types import Gender
+from core.file.cloud_handler import CloudHandler
+from core.utils.helper import CookiesProtocol
+from core.utils.types import Gender
 
-from .base import (
+from core.scraper.base import (
     BaseScraper,
     BaseProduct,
     BaseProductPage,

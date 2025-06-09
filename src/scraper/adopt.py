@@ -1,13 +1,13 @@
 import logging
 
 
-from .typed import ProductType, AdoptPageType
+from core.scraper.typed import ProductType, AdoptPageType
 
-from ..file.cloud_handler import CloudHandler
-from ..utils.helper import CookiesProtocol
-from ..utils.types import Gender
+from core.file.cloud_handler import CloudHandler
+from core.utils.helper import CookiesProtocol
+from core.utils.types import Gender
 
-from .base import (
+from core.scraper.base import (
     BaseScraper,
     BaseProduct,
     BaseProductPage,

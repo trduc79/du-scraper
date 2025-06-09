@@ -121,6 +121,29 @@ class BaseProductPage(BaseItem):
 
 
 class BaseProduct(BaseItem):
+    """A base class representing a product with multiple variants.
+    This class serves as the foundation for product representations across different sources,
+    containing basic product information and managing product variants.
+    Attributes:
+        source (str): The source/retailer of the product.
+        id (str): Unique identifier for the product.
+        _name (str): Raw name of the product.
+        brand (str): Brand name of the product.
+        line (str): Product line or collection name.
+        gender (GenderType): Target gender for the product. Defaults to ALL.
+        raw_link (str): Original URL or link to the product. Defaults to empty string.
+        children (set[BaseProductVariant]): Set of product variants.
+        _is_variants_loaded (bool): Flag indicating if all variants have been loaded.
+    Properties:
+        is_variants_loaded (bool): Check if all variants are loaded.
+        name (str): Formatted product name with common suffixes removed.
+        number_of_variants (int): Count of product variants.
+    Methods:
+        add_variant(variant): Add a new product variant.
+        remove_variant(variant): Remove a product variant.
+        added_all_variants(): Mark variant loading as complete.
+    """
+    
     def __init__(
         self,
         source: str,
@@ -210,6 +233,30 @@ class BaseProduct(BaseItem):
 
 
 class BaseProductVariant(BaseItem):
+    """A base class representing a product variant with specific attributes and methods.
+    This class handles individual variants of products, storing information such as price,
+    volume, stock status, and maintains a relationship with its parent product.
+    Attributes:
+        id (str): Unique identifier for the variant.
+        name (str): Name of the variant.
+        product_parent (BaseProduct): Reference to the parent product.
+        price (float): Price of the variant.
+        volume (float): Volume/size of the variant.
+        price_unit (str): Currency unit for the price (default: '€').
+        volume_unit (str): Unit for the volume measurement (default: 'ml').
+        raw_link (str): URL link to the variant.
+        variant_stock (int): Current stock quantity.
+        is_sampling (bool): Flag indicating if this is a sample product.
+    Properties:
+        in_stock (bool): Indicates if the variant is currently in stock.
+        iso_price_unit (str): Returns the ISO standard currency code.
+        iso_volume_unit (str): Returns the standardized volume unit.
+        price_per_volume (float): Calculates price per unit volume.
+    Methods:
+        update_product_parent(product_parent): Updates the parent product reference.
+        to_scraper_output(): Converts the variant data to a ScraperOutput dict object.
+    """
+    
     def __init__(
         self,
         variant_id: str,
@@ -289,13 +336,58 @@ class BaseProductVariant(BaseItem):
 
 
 class BaseScraper:
+    """BaseScraper is an abstract base class that provides core functionality for web scraping implementations.
+    The class handles common scraping operations like browser interactions, file downloads, cookie management,
+    state persistence, and blob storage integration.
+    Child classes must implement:
+    - login(): Handle authentication if required
+    - get_otp(): Generate/retrieve OTP codes if needed  
+    - entry_main(): Main scraping logic entry point
+    - validate_all_products(): Product validation logic
+    Args:
+        driver (webdriver.Edge): Selenium Edge webdriver instance
+        run_id (str): Unique identifier for the scraping run
+        scraper_id (str): Identifier for the specific scraper implementation
+        otp_generator (BaseOTPGenerator): OTP generation handler
+        cloud_handler (CloudHandler): Cloud storage handler for uploads
+        cookie_saver (CookiesProtocol): Cookie persistence handler
+        execution_date (str, optional): Date of execution. Defaults to current UTC datetime
+        state_saver (StateSaver, optional): State persistence handler
+        default_wait_seconds (int, optional): Default wait time in seconds. Defaults to 10
+        tmp_location (str, optional): Temp directory path. Defaults to "./tmp/scrapers"
+    Attributes:
+        id (str): Scraper identifier
+        run_id (str): Run identifier
+        name (str): Scraper name
+        default_wait (int): Default wait time
+        blob_client (CloudHandler): Cloud storage client
+        otp_generator (BaseOTPGenerator): OTP generator
+        cookie_saver (CookiesProtocol): Cookie handler
+        execution_date (str): Execution date
+        session (requests): Requests session
+        state_saver (StateSaver): State handler
+        soup (BS): BeautifulSoup parser instance
+        _uploaded_files (list): Tracking of uploaded files
+        _cached_sites (dict): Cache of visited sites
+        _all_loaded_products (set): Set of loaded product data
+    Methods:
+        main(): Primary entry point that should be called to start scraping
+        login(): Handle authentication (must implement)
+        get_otp(): Get OTP code (must implement) 
+        entry_main(): Scraping logic (must implement)
+        validate_all_products(): Product validation (must implement)
+        wait(): Flexible wait with optional conditions
+        get(): HTTP GET with caching
+        post(): HTTP POST with caching
+        save_screenshot(): Save browser screenshot
+        upload_image_to_blob(): Upload screenshot to cloud
+        get_downloaded_files(): Get downloaded file list
+        load_cookies(): Load stored cookies
+        save_cookies(): Save cookies
+        save_state(): Save scraper state
+        load_state(): Load scraper state
+        to_json(): Export products to JSON
     """
-    The abstract Scraper contains structure and helper functions.
-    Child Scraper must implement `login()`, `get_otp` and `entry_main()` method.
-    `entry_main()` method is the start of child scraper,
-    but you have to call `child_scraper.main()` to start scraper instead.
-    """
-
     def __init__(
         self,
         driver: webdriver.Edge,
