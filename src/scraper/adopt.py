@@ -1,9 +1,8 @@
 import logging
 
-
+from selenium.common.exceptions import NoSuchElementException
 from core.file.cloud_handler import CloudHandler
 from core.utils.helper import CookiesProtocol
-from selenium.common.exceptions import NoSuchElementException
 import json
 import re
 from core.scraper.base import (
@@ -266,26 +265,26 @@ class AdoptScraper(BaseScraper):
             return results
 
         except Exception as e:
-            logger.info(f"❌ Lỗi xử lý JSON: {e}")
+            logger.info("❌ Lỗi xử lý JSON: %s",e)
             return {}
     
-    def check_stock_variants(self, product: AdoptProduct) -> bool:
+    def get_variant_stock(self, product: AdoptProduct) -> int:
         self.get(product.link)
 
         # Kiểm tra form chứa biến thể
         form = self.soup.find(id="product_addtocart_form")
         if not form:
             logger.warning("❌ Không tìm thấy form chứa biến thể trong %s", product.link)
-            return False  # Giả định là còn hàng nếu không kiểm tra được
+            return 1  # Không xác định được thì giả định còn hàng
 
         # Kiểm tra alert_container xuất hiện -> là hết hàng
         alert_div = self.soup.find("div", id="alert_container")
         if alert_div and "display: none" not in alert_div.get("style", ""):
             logger.info("❌ Biến thể đang chọn đã hết hàng (alert_container hiển thị)")
-            return False
+            return 0  # Hết hàng
 
         logger.info("✅ Biến thể đang chọn vẫn còn hàng")
-        return True
+        return 1  
     
     def _load_product_variant(self, product: AdoptProduct):
         num_variants = self.find_variants_option(product)
@@ -313,7 +312,7 @@ class AdoptScraper(BaseScraper):
                     variant_price_unit=variant_price_unit,
                     variant_volume=variant_volume,
                     variant_volume_unit=variant_volume_unit,
-                    variant_stock=self.check_stock_variants(product)
+                    variant_stock=self.get_variant_stock(product)
                 )
             )
             logger.info("✅ Sản phẩm có 1 biến thể (mặc định): %s", variant_name)
@@ -345,7 +344,7 @@ class AdoptScraper(BaseScraper):
     def get_number_of_pages(self, max_pages=100):
         page = 1
         while page <= max_pages:
-            logger.info(f"🔄 Đang kiểm tra trang {page}")
+            logger.info("🔄 Đang kiểm tra trang %s",page)
             soup = self.get(f"{PRODUCT_LIST}?p={page}")
 
             # Kiểm tra xem có xuất hiện "Fin de sélection"
@@ -357,22 +356,16 @@ class AdoptScraper(BaseScraper):
                 strip=True
             ):
                 logger.info(
-                    f"✅ Kết thúc tại trang {page} do xuất hiện 'Fin de sélection'"
+                    "✅ Kết thúc tại trang %s do xuất hiện 'Fin de sélection ",page
                 )
                 break
 
             page += 1
-
-        if page > max_pages:
-            logger.warning(
-                "⚠️ Vượt quá giới hạn trang (%s), có thể bị vòng lặp vô hạn!", max_pages
-            )
-
         return page
 
     def load_all_product(self):
         max_page = self.get_number_of_pages()
-        logger.info(f"📄 Tổng số trang: {max_page}")
+        logger.info("📄 Tổng số trang: %s",max_page)
 
         for page in range(1,max_page + 1):
             soup = self.get(f"{PRODUCT_LIST}?p={page}")
@@ -381,9 +374,7 @@ class AdoptScraper(BaseScraper):
                 "script", text=re.compile(r"function initItemProduct_")
             )
 
-            logger.info(
-                f"🔍 Trang {page} có {len(products)} sản phẩm và {len(scripts)} script."
-            )
+            logger.info("🔍 Trang %s có %s sản phẩm và %s script.",page, len(products), len(scripts))
 
             for product, script in zip(products, scripts):
                 try:
@@ -395,6 +386,7 @@ class AdoptScraper(BaseScraper):
                     )
 
                     if not match:
+                        logger.warning("⚠️ Không tìm thấy dữ liệu 'currentProductData' trong script tại trang %d", page)
                         continue
 
                     block = match.group(1).encode().decode("unicode_escape")
@@ -429,7 +421,7 @@ class AdoptScraper(BaseScraper):
                     logger.info("✅ %s | %s | %s", product_id, name, full_url)
 
                 except Exception as e:
-                    logger.warning(f"❌ Lỗi xử lý sản phẩm: {e}")
+                    logger.warning("❌ Lỗi xử lý sản phẩm: %s",e)
 
     def validate_all_products(self):
         self.load_all_product()
