@@ -17,8 +17,17 @@ from core.scraper.base import (
 HOMEPAGE = "https://www.adopt.com"
 PRODUCT_BASE_URL = f"{HOMEPAGE}/fr"
 PRODUCT_LIST = f"{PRODUCT_BASE_URL}/parfum.html"
+LIST_PRODUCT_SELECTOR = "a.product-item"
 
+OPTION_OF_PRODUCT = "label.pill-radio-capacity"
+VARIANT_DESC = "span.short-description-container"
+VARIANT_NAME_SELECTOR = "font-romie font-bold flex gap-2 items-center justify-between"
+VARIANT_ID_SELECTOR = 'data-wishlist'
+VARIANT_ALERT_SELECTOR = "alert_container"
 
+END_PAGE_SELECTOR = 'span.text-purple.font-primary.font-semibold.xl\\:text-smaller.text-xs[x-show="wording"]'
+ 
+FORM_ID_SELECTOR = "product_addtocart_form"
 API_HOME_PATH = PRODUCT_BASE_URL
 API_GET_PRODUCTS_TEMPLATE = (
     f"{API_HOME_PATH}/fr/parfum.html?" "p={currentPage}&is_scroll=1"
@@ -88,38 +97,37 @@ class AdoptScraper(BaseScraper):
         if not product.link:
             return 0
 
-        logger.info("[INFO] Loading product detail page: %s", product.link)
+        logger.info("Loading product detail page: %s", product.link)
 
         self.get(product.link)
-        ##dk1
+        
         try:
             form = self.soup.find(id="product_addtocart_form")
         except NoSuchElementException:
             logger.warning(
-                "⛔ Không tìm thấy biến thể nào cho sản phẩm%s", product.link
+                "Can not find variant of product: %s", product.link
             )
             return 0
-        if form == None:
+        if not form:
             logger.warning(
-                "⛔ Không tìm thấy biến thể nào cho sản phẩm %s", product.link
+                "Can not find variant of product: %s", product.link
             )
             return 0 
         
 
-        options = form.select("label.pill-radio-capacity")
+        options = form.select(OPTION_OF_PRODUCT)
         valid_options = [
             opt for opt in options if re.search(r"\d+\s*ml", opt.text.strip().lower())
         ]
         if options:
             logger.info(
-                "✅ Tìm thấy %d biến thể cho sản phẩm %s",
+                "Find %d variants of product: %s",
                 len(valid_options),
                 product.link,
             )
             return len(options)
 
-        # lay ra doan chu chua size  dk2
-        desc_container = self.soup.select_one("span.short-description-container")
+        desc_container = self.soup.select_one(VARIANT_DESC)
         if desc_container:
             desc_text = desc_container.get_text(strip=True)
         else:
@@ -133,40 +141,37 @@ class AdoptScraper(BaseScraper):
             )
             if match:
                 variant_name = match.group(1).strip()
-                logger.info("🟢 Không có biến thể UI nhưng tìm thấy: %s", variant_name)
+                logger.info("No variant. Try to extract data only: %s", variant_name)
                 return 1
             else:
                 logger.warning(
-                    "⚠️ Mô tả chỉ có 1 dung tích nhưng không khớp mẫu: %s", desc_text
+                    "Description have 1 volume not right: %s", desc_text
                 )
                 return 0
 
-        # Điều kiện 3: Có dấu "+" hoặc không có đơn vị ml
         if "+" in desc_text or "ml" not in desc_text.lower():
-            logger.warning("⚠️ Mô tả kết hợp hoặc không rõ ràng: %s", desc_text)
+            logger.warning("Description is unclear: %s", desc_text)
             return 0
 
-        # Không có gì hợp lệ
-        logger.warning("⛔ Không tìm thấy biến thể nào cho sản phẩm %s", product.link)
+        logger.warning("Can not find variant of product: %s", product.link)
         return 0
 
     def get_variant_volume(self, product: AdoptProduct):
         self.get(product.link)
 
-        desc_container = self.soup.select_one("span.short-description-container")
+        desc_container = self.soup.select_one(VARIANT_DESC)
         if desc_container:
             desc_text = desc_container.get_text(strip=True)
         else:
             desc_text = ""
 
-        # Tìm dung tích trong mô tả, ví dụ "50 ML", "100ml"
         match = re.search(r"(\d{1,4})\s*ml", desc_text.lower())
         if match:
             volume = int(match.group(1))
-            logger.info("📦 Tìm thấy dung tích: %dml từ mô tả: %s", volume, desc_text)
+            logger.info("Find volume: %dml from : %s", volume, desc_text)
             return volume
         else:
-            logger.warning("⚠️ Không tìm thấy dung tích trong mô tả: %s", desc_text)
+            logger.warning("Can not find volume: %s", desc_text)
             return None
 
     def get_variant_price(self, product: AdoptProduct):
@@ -174,7 +179,7 @@ class AdoptScraper(BaseScraper):
 
         meta_price = self.soup.find("meta", attrs={"property": "product:price:amount"})
         if not meta_price:
-            logger.info("⚠️ Không tìm thấy thẻ meta giá cho sản phẩm %s", product.link)
+            logger.info("Can not find tag meta  %s", product.link)
             return None
 
         price_text = meta_price.get("content")
@@ -182,15 +187,16 @@ class AdoptScraper(BaseScraper):
             price = float(price_text)
             return price
         except (TypeError, ValueError):
-            logger.warning("❌ Không thể chuyển đổi giá '%s' thành số", price_text)
+            logger.warning("Can not prase price '%s' into number", price_text)
             return None
         
     def get_variant_name(self, product: AdoptProduct):
         self.get(product.link)
         
-        name_text = self.soup.find("div", class_ = "font-romie font-bold flex gap-2 items-center justify-between")
+        name_text = self.soup.find("div", class_ = VARIANT_NAME_SELECTOR)
         if not name_text:
-            logger.info("Ko tim ra ten bien the")
+            logger.info("Can not find name of variant")
+            return None
         return name_text.get_text(strip=True)
         
     def get_variant_id(self, product: AdoptProduct):
@@ -198,7 +204,7 @@ class AdoptScraper(BaseScraper):
         
         btn = self.soup.find('button', attrs={'data-wishlist': True})
         if btn:
-            product_id = btn.get('data-wishlist')
+            product_id = btn.get(VARIANT_ID_SELECTOR)
             return product_id
         
     def get_all_variants(self, product: AdoptProduct):
@@ -213,21 +219,19 @@ class AdoptScraper(BaseScraper):
                 break
 
         if not script_text:
-            logger.info("❌ Không tìm thấy script chứa initConfigurableSwatchOptions_")
+            logger.info("Can not find script contain initConfigurableSwatchOptions_")
             return {}
 
-        # Tách JSON từ initConfigurableOptions
         pattern = r'initConfigurableOptions\(\s*[\'"]\d+[\'"]\s*,\s*(\{.*?})(?=\s*\);)'
         match = re.search(pattern, script_text, re.DOTALL)
 
         if not match:
-            logger.info("❌ Không tìm thấy JSON trong initConfigurableOptions")
+            logger.info("Can not find JSON in  initConfigurableOptions")
             return {}
 
         raw_json_text = match.group(1)
 
         try:
-            # Làm sạch JSON
             json_text = re.sub(r',(\s*[}\]])', r'\1', raw_json_text)
             json_text = json_text.replace("'", '"')
             json_text = re.sub(r'([,{]\s*)(\w+)(\s*:)', r'\1"\2"\3', json_text)
@@ -265,37 +269,33 @@ class AdoptScraper(BaseScraper):
             return results
 
         except Exception as e:
-            logger.info("❌ Lỗi xử lý JSON: %s",e)
+            logger.info("Lỗi xử lý JSON: %s",e)
             return {}
     
     def get_variant_stock(self, product: AdoptProduct) -> int:
         self.get(product.link)
 
-        # Kiểm tra form chứa biến thể
-        form = self.soup.find(id="product_addtocart_form")
+        form = self.soup.find(id=FORM_ID_SELECTOR)
         if not form:
-            logger.warning("❌ Không tìm thấy form chứa biến thể trong %s", product.link)
-            return 1  # Không xác định được thì giả định còn hàng
+            logger.warning("Can not find form in variant %s", product.link)
+            return 1  
 
-        # Kiểm tra alert_container xuất hiện -> là hết hàng
-        alert_div = self.soup.find("div", id="alert_container")
+        alert_div = self.soup.find("div", id=VARIANT_ALERT_SELECTOR)
         if alert_div and "display: none" not in alert_div.get("style", ""):
-            logger.info("❌ Biến thể đang chọn đã hết hàng (alert_container hiển thị)")
-            return 0  # Hết hàng
+            logger.info("Variant is out_of_stock")
+            return 0  
 
-        logger.info("✅ Biến thể đang chọn vẫn còn hàng")
+        logger.info("Variant in_stock")
         return 1  
     
     def _load_product_variant(self, product: AdoptProduct):
         num_variants = self.find_variants_option(product)
 
         if num_variants == 0:
-            logger.warning("⛔ Sản phẩm không có biến thể: %s", product.link)
+            logger.warning("Product does not have variant: %s", product.link)
             return
 
-        elif num_variants == 1:
-            # TODO: Phân tích dữ liệu từ mô tả hoặc giá
-            # Dummy variant info (tạm thời bạn cần lấy đúng dữ liệu thật):
+        if num_variants == 1:
             variant_id = self.get_variant_id(product)
             variant_name = self.get_variant_name(product)
             variant_price = self.get_variant_price(product)
@@ -315,48 +315,44 @@ class AdoptScraper(BaseScraper):
                     variant_stock=self.get_variant_stock(product)
                 )
             )
-            logger.info("✅ Sản phẩm có 1 biến thể (mặc định): %s", variant_name)
+            logger.info("Product have 1 variant : %s", variant_name)
+            return
 
-        elif num_variants > 1:
-            logger.info("✅ Sản phẩm có nhiều biến thể UI: %s", product.link)
-            # TODO: Trích xuất biến thể từ UI (ví dụ từ form)
-            
-            #b1: Tim dc variants ID cua tung bien the 
-            self.get(product.link) 
-            
-            variants_info = self.get_all_variants(product)
-            for size_ml, (variant_id, price , in_stock) in variants_info.items():
-                product.add_variant(
-                    AdoptProductVariant(
-                        variant_id=variant_id,
-                        product_parent=product.id,
-                        variant_name=product.name,
-                        variant_price=price,
-                        variant_price_unit="€",
-                        variant_volume=size_ml,
-                        variant_volume_unit="ml",
-                        variant_stock=in_stock
-                    )
+        logger.info("Product has many variants: %s", product.link)
+        self.get(product.link)
+
+        variants_info = self.get_all_variants(product)
+        for size_ml, (variant_id, price, in_stock) in variants_info.items():
+            product.add_variant(
+                AdoptProductVariant(
+                    variant_id=variant_id,
+                    product_parent=product.id,
+                    variant_name=product.name,
+                    variant_price=price,
+                    variant_price_unit="€",
+                    variant_volume=size_ml,
+                    variant_volume_unit="ml",
+                    variant_stock=in_stock
                 )
-            
-            
+            )
+        return 
+                
             
     def get_number_of_pages(self, max_pages=100):
         page = 1
         while page <= max_pages:
-            logger.info("🔄 Đang kiểm tra trang %s",page)
+            logger.info("Loading page: %s",page)
             soup = self.get(f"{PRODUCT_LIST}?p={page}")
 
-            # Kiểm tra xem có xuất hiện "Fin de sélection"
             end_of_selection = soup.select_one(
-                'span.text-purple.font-primary.font-semibold.xl\\:text-smaller.text-xs[x-show="wording"]'
+                END_PAGE_SELECTOR
             )
 
             if end_of_selection and "Fin de sélection" in end_of_selection.get_text(
                 strip=True
             ):
                 logger.info(
-                    "✅ Kết thúc tại trang %s do xuất hiện 'Fin de sélection ",page
+                    "End in page %s due to show up 'Fin de sélection ",page
                 )
                 break
 
@@ -365,16 +361,16 @@ class AdoptScraper(BaseScraper):
 
     def load_all_product(self):
         max_page = self.get_number_of_pages()
-        logger.info("📄 Tổng số trang: %s",max_page)
+        logger.info("📄 All page : %s",max_page)
 
-        for page in range(1,max_page + 1):
+        for page in range(1,2):
             soup = self.get(f"{PRODUCT_LIST}?p={page}")
-            products = soup.select("a.product-item")
+            products = soup.select(LIST_PRODUCT_SELECTOR)
             scripts = soup.find_all(
                 "script", text=re.compile(r"function initItemProduct_")
             )
 
-            logger.info("🔍 Trang %s có %s sản phẩm và %s script.",page, len(products), len(scripts))
+            logger.info("Page %s have %s product and %s script.",page, len(products), len(scripts))
 
             for product, script in zip(products, scripts):
                 try:
@@ -386,7 +382,7 @@ class AdoptScraper(BaseScraper):
                     )
 
                     if not match:
-                        logger.warning("⚠️ Không tìm thấy dữ liệu 'currentProductData' trong script tại trang %d", page)
+                        logger.warning("Can not find data 'currentProductData' trong script tại trang %d", page)
                         continue
 
                     block = match.group(1).encode().decode("unicode_escape")
@@ -403,7 +399,7 @@ class AdoptScraper(BaseScraper):
                     product_id = id_match.group(1) if id_match else ""
                     name = name_match.group(1) if name_match else ""
 
-                    # 🔥 Quan trọng: lấy URL từ thẻ <a>, không phải script
+
                     href = product.get("href", "")
                     full_url = HOMEPAGE + href if href.startswith("/") else href
                     
@@ -418,10 +414,10 @@ class AdoptScraper(BaseScraper):
                     )
                     self._all_loaded_products.add(product_obj)
 
-                    logger.info("✅ %s | %s | %s", product_id, name, full_url)
+                    logger.info("%s | %s | %s", product_id, name, full_url)
 
                 except Exception as e:
-                    logger.warning("❌ Lỗi xử lý sản phẩm: %s",e)
+                    logger.warning("Error : %s",e)
 
     def validate_all_products(self):
         self.load_all_product()
