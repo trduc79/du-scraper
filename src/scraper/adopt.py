@@ -363,7 +363,7 @@ class AdoptScraper(BaseScraper):
         max_page = self.get_number_of_pages()
         logger.info("📄 All page : %s",max_page)
 
-        for page in range(1,2):
+        for page in range(1,max_page + 1):
             soup = self.get(f"{PRODUCT_LIST}?p={page}")
             products = soup.select(LIST_PRODUCT_SELECTOR)
             scripts = soup.find_all(
@@ -382,7 +382,7 @@ class AdoptScraper(BaseScraper):
                     )
 
                     if not match:
-                        logger.warning("Can not find data 'currentProductData' trong script tại trang %d", page)
+                        logger.warning("Can not find data 'currentProductData'  %d", page)
                         continue
 
                     block = match.group(1).encode().decode("unicode_escape")
