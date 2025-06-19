@@ -20,6 +20,7 @@ HOMEPAGE = "https://www.beautysuccess.fr/"
 PRODUCT_LIST_FE = "https://www.beautysuccess.fr/shop/parfum/parfum-femme"
 PRODUCT_LIST_MA = "https://www.beautysuccess.fr/shop/homme/parfum-homme"
 
+BUTTON_MORE = "window.scrollTo(0, document.body.scrollHeight);"
 LIST_PRODUCT_SELECTOR = "li.item.product.product-item.listing"
 NAME_RANGE_PRODUCT_SELECTOR = "div.product-range-label"
 NAME_SUB_PRODUCT_SELECTOR="div.product-subtitle-label"
@@ -100,7 +101,7 @@ class BeautyScraper(BaseScraper):
         super().__init__(
             driver=driver,
             run_id=run_id,
-            scraper_id="beauty_fe",
+            scraper_id="beauty",
             otp_generator=None,
             cloud_handler=cloud_handler,
             cookie_saver=cookie_saver,
@@ -108,7 +109,7 @@ class BeautyScraper(BaseScraper):
             default_wait_seconds=default_wait_seconds,
         )
         self._all_loaded_products: set[BeautyProduct] = set()
-        self._name = "beauty_fe"
+        self._name = "beauty"
 
     def get_variant_price(self, product: BeautyProduct) -> float:
         self.get(product.link)
@@ -281,8 +282,7 @@ class BeautyScraper(BaseScraper):
             logger.info("Loading page: %s",page)
             self._browser.get(f"{base_url}?p={page}")
 
-            #scroll xuong 
-            self._browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            self._browser.execute_script(BUTTON_MORE)
             time.sleep(2)
             try:
                 button_expand = self._browser.find_element(By.CLASS_NAME, "ias-load-more")
@@ -297,7 +297,6 @@ class BeautyScraper(BaseScraper):
                 break
             
         return page
-    
     
     
     def load_all_product_by_url(self, base_url: str, gender: str):
