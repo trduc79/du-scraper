@@ -463,7 +463,7 @@ class BaseScraper:
             logger.error("Cannot parse volume from %s", volume_text)
             return 1, volume_text
 
-    def get_json(self, url: str, headers=None, timeout=20, use_cached=True) -> dict:
+    def get_json(self, url: str, headers=None, timeout=40, use_cached=True) -> dict:
         cached_name = self.get_cached_name(url, file_type="json")
         if use_cached and os.path.isfile(cached_name):
             logger.info("Found cached site: %s", cached_name)
@@ -514,7 +514,7 @@ class BaseScraper:
 
         return result
 
-    def get(self, url: str, use_cache=True):
+    def get(self, url: str, use_cache=True, condition=None, timeout=0):
         cached_name = self.get_cached_name(url)
         if use_cache and os.path.isfile(cached_name):
             logger.info("Found cached site: %s", cached_name)
@@ -526,6 +526,10 @@ class BaseScraper:
                     return self.soup
 
         self._browser.get(url)
+        
+        if timeout:
+            self.wait(until=condition, timeout=timeout)
+        
         with open(cached_name, "w", encoding="utf-8") as file:
             file.write(self._browser.page_source)
             self._cached_sites[url] = cached_name
@@ -590,15 +594,18 @@ class BaseScraper:
         return result
 
     def post(
-        self, url: str, data: dict, headers=None, timeout=20, use_cached=True
+        self, url: str, data: dict, headers=None, timeout=30, use_cached=True, json_data=None
     ) -> dict:
-        cached_name = self.get_cached_name(url, data=data, file_type="json")
+        cached_name = self.get_cached_name(url, data=json_data or data, file_type="json")
         if use_cached and os.path.isfile(cached_name):
             logger.info("Found cached site: %s", cached_name)
             self._cached_sites[url] = cached_name
             with open(cached_name, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                return data
+                try:
+                    data = json.load(f)
+                except json.JSONDecodeError:
+                    os.remove(cached_name)
+
         if not url:
             return {}
 
@@ -606,7 +613,7 @@ class BaseScraper:
             headers = DEFAULT_HEADERS
 
         response = self.session.post(
-            url=url, data=data, headers=headers, timeout=timeout
+            url=url, data=data, headers=headers, timeout=timeout, json=json_data or data
         )
         if response.status_code != 200:
             logger.error("Cannot get result from %s", url)
@@ -1258,6 +1265,9 @@ class BaseScraper:
             for variant in product:
                 variants.append(variant.to_scraper_ouput().model_dump_json())
         return variants
+
+    def go_to_bottom_page(self):
+        self._browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
     def login(self):
         logger.info("No need to login to %s", self.name)

@@ -11,7 +11,11 @@ from scraper.marionnaud import MarionnaudScraper
 from scraper.lafayette import LafayetteScraper
 from scraper.printemps import PrintempsScraper
 from scraper.zara import ZaraScraper
-
+from scraper.adopt import AdoptScraper
+from scraper.beauty import BeautyScraper
+from scraper.my_origines import MyOriginesScraper
+from scraper.selfridges import SelfridgesScraper
+from scraper.harrods import HarrodsScraper
 logger = logging.getLogger(__name__)
 
 
@@ -32,20 +36,21 @@ def configure_logging(log_name: str = "scraper"):
 
 def main():
 
-    execution_date = "2025-04-07"
+    execution_date = "2025-06-15"
     run_id = f"{uuid.uuid4()}"
     # TODO: Change the scraper to the one you want to run
-    Scraper = NocibeScraper
+    Scraper = HarrodsScraper
     
     configure_logging(Scraper.__name__.lower())
 
     if issubclass(Scraper, (ZaraScraper, MarionnaudScraper, LafayetteScraper, PrintempsScraper)):
         driver = DummyDriver()
-    elif issubclass(Scraper, NocibeScraper):
+    elif issubclass(Scraper, (NocibeScraper, AdoptScraper, BeautyScraper,MyOriginesScraper,SelfridgesScraper,HarrodsScraper)):
         driver_url = os.getenv("SELENIUM_DRIVER_URL", "http://localhost:4444")
         driver = d.get_driver(
             scraper_id="nocibe",
             run_id=run_id,
+            
             remote_server=driver_url,
             execution_date=execution_date,
         )
