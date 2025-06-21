@@ -96,12 +96,12 @@ class HarrodsScraper(BaseScraper):
         )
         self._all_loaded_products: set[HarrodsProduct] = set()
         self._name = "Harrods"
-
+        
     def is_valid_uuid(self, s: str) -> bool:
         if not isinstance(s, str):
             return False
-        # Sửa pattern để chấp nhận cả chữ hoa và thường
-        pattern = r"^[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}$"
+
+        pattern = r"^[A-F0-9]{8}-([A-F0-9]{4}-){3}[A-F0-9]{12}$"
         return bool(re.fullmatch(pattern, s))
 
 
@@ -124,9 +124,7 @@ class HarrodsScraper(BaseScraper):
             for index, value in enumerate(json_data):
                 if str(value) != product.id:
                     continue
-                
-                # Lấy giá trị NGAY TRƯỚC product.id
-                if index > 0:  # Đảm bảo không bị index âm
+                if index > 0: 
                     previous_value = json_data[index - 1]
                     if self.is_valid_uuid(str(previous_value)):
                         return previous_value
@@ -201,26 +199,32 @@ class HarrodsScraper(BaseScraper):
 
         product.added_all_variants()
         
-    # def get_max_page(self, base_url: str, product_per_page: int = 60) -> int:
-    #     #dang fix 
-    #     soup = self.get(f"{base_url}?page=1")
-
-    #     headline_tag = soup.select_one('[data-test-id="headline"]')
-    #     if headline_tag:
-    #         text = headline_tag.get_text(strip=True)
-    #         total_products = int(text.split()[0])
-    #         max_page = math.ceil(total_products / product_per_page)
-    #         return max_page
-    #     else:
-
-    #         return 1
+    def get_max_page(self, base_url: str) -> int:
+        page = 1
+        while True:
+            soup = self.get(f"{base_url}?page={page}")
+            
+            next_button = None
+            pagination_buttons = soup.select('[data-test-id="paginationButton"]')
+            
+            for button in pagination_buttons:
+                if 'next' in button.get_text().lower():
+                    next_button = button
+                    break
+            
+            if not next_button:
+                return page
+    
+            page += 1
+   
+   
 
     def load_all_product_by_url(self, base_url: str, use_cache=True):
         fully_loaded = lambda _: self.find_all_by_attribute(
             "data-test-id", "product-item"
         )
-        # max_page = self.get_max_page(base_url)
-        for page in range(1, 2):
+        max_page = self.get_max_page(base_url)
+        for page in range(1, max_page + 1):
             self.get(
                 f"{base_url}?page={page}",
                 use_cache=use_cache,
