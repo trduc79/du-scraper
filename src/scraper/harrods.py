@@ -1,12 +1,5 @@
-from functools import partial
-import json
-import random
 import re
 import logging
-import math
-import uuid
-
-
 
 from core.file.cloud_handler import CloudHandler
 from core.utils.helper import CookiesProtocol
@@ -21,6 +14,17 @@ from core.scraper.base import (
 HOMEPAGE = "https://www.harrods.com/en-us"
 URL = "https://www.harrods.com"
 PRODUCT_LIST = "https://www.harrods.com/en-us/perfume"
+PRODUCT_LIST_FAMALE = "https://www.harrods.com/en-us/perfume/womens-perfume"
+PRODUCT_LIST_MALE = "https://www.harrods.com/en-us/perfume/mens-aftershave"
+PRODUCT_LIST_UNISEX = "https://www.harrods.com/en-us/perfume/unisex-perfumes"
+
+LIST_PRODUCT_SELECTOR = 'article[data-test-id="product-item"]'
+PRODUCT_NAME_SELECTOR = 'p[data-test-id="product-card-product-name"]'
+PRODUCT_BRAND_SELECTOR = 'p[data-test-id="headline"]'
+PRODUCT_ID_SELECTOR = "data-product-card-id"
+PRODUCT_URL_SELECTOR="a[href]"
+
+BUTTON_MORE_PAGE = '[data-test-id="paginationButton"]'
 
 API_BASE = "https://www.harrods.com/en-af/api/rpc"
 API_PRODUCT_BY_MASTER_KEY = f"{API_BASE}/getProductsByMasterKey"
@@ -100,10 +104,10 @@ class HarrodsScraper(BaseScraper):
     def is_valid_uuid(self, s: str) -> bool:
         if not isinstance(s, str):
             return False
-
-        pattern = r"^[A-F0-9]{8}-([A-F0-9]{4}-){3}[A-F0-9]{12}$"
-        return bool(re.fullmatch(pattern, s))
-
+        pattern_with_dashes = r"^[A-F0-9]{8}-([A-F0-9]{4}-){3}[A-F0-9]{12}$"
+        
+        pattern_without_dashes = r"^[A-F0-9]{32}$"
+        return bool(re.fullmatch(pattern_with_dashes, s)) or bool(re.fullmatch(pattern_without_dashes, s))
 
     def _find_master_key(self, product: HarrodsProduct):
         nuxt_data = self.soup_find_all_by_attribute("id", "__NUXT_DATA__")
@@ -115,23 +119,27 @@ class HarrodsScraper(BaseScraper):
             logger.warning("Find more than one Nuxt data!")
 
         for nuxt in nuxt_data:
-            data = nuxt.get_text()
-            json_data = json.loads(data)
+            data:str = nuxt.get_text()
+            json_data = data.split(",")
             if not json_data:
                 logger.warning("Cannot find the data")
                 return
             
             for index, value in enumerate(json_data):
+                value = value.replace('"', "")
                 if str(value) != product.id:
                     continue
                 if index > 0: 
                     previous_value = json_data[index - 1]
+                    previous_value = previous_value.replace('"',"")
                     if self.is_valid_uuid(str(previous_value)):
                         return previous_value
                 return value
 
     def _load_product_variant(self, product: HarrodsProduct):
+        self.get(product.link)
         master_key = self._find_master_key(product)
+
         if not master_key:
             logger.error("Cannot find variant")
             return
@@ -152,27 +160,11 @@ class HarrodsScraper(BaseScraper):
             variant = entity.get("variants", [{}])[0]
             variant_id = variant.get("id")
 
-            price_data = variant.get("price", {})
-            price = price_data.get("withTax")
-            variant_price = price / 100 if price is not None else None
+            price_data, variant_price = self.get_variant_price(variant)
 
             currency = price_data.get("currencyCode", "")
 
-            volume_label = entity.get("attributes", {}).get("volumeDescription", {}) \
-                                .get("values", {}).get("label", "")
-            
-            variant_volume = "1"
-            variant_volume_unit = "unit" 
-            if " " in volume_label:
-                variant_volume, variant_volume_unit = volume_label.split(" ")
-                variant_volume_unit = variant_volume_unit.lower()
-            else:
-                name_label = entity.get("attributes", {}).get("name", {}).get("values", {}).get("label", "")
-                import re
-                match = re.search(r"\((\d+(?:\.\d+)?)\s*([a-zA-Z]+)\)", name_label)
-                if match:
-                    variant_volume = match.group(1)
-                    variant_volume_unit = match.group(2).lower()
+            variant_volume, variant_volume_unit = self.get_variant_volume_and_unit(entity)
 
             logger.info(
                 " Variant -> Size: %s | Unit: %s | Price: %s | ID: %s | URL: %s",
@@ -198,6 +190,29 @@ class HarrodsScraper(BaseScraper):
             )
 
         product.added_all_variants()
+
+    def get_variant_price(self, variant):
+        price_data = variant.get("price", {})
+        price = price_data.get("withTax")
+        variant_price = price / 100 if price is not None else None
+        return price_data,variant_price
+
+    def get_variant_volume_and_unit(self, entity):
+        volume_label = entity.get("attributes", {}).get("volumeDescription", {}) \
+                                .get("values", {}).get("label", "")
+            
+        variant_volume = "1"
+        variant_volume_unit = "unit" 
+        if " " in volume_label:
+            variant_volume, variant_volume_unit = volume_label.split(" ")
+            variant_volume_unit = variant_volume_unit.lower()
+        else:
+            name_label = entity.get("attributes", {}).get("name", {}).get("values", {}).get("label", "")
+            match = re.search(r"\((\d+(?:\.\d+)?)\s*([a-zA-Z]+)\)", name_label)
+            if match:
+                variant_volume = match.group(1)
+                variant_volume_unit = match.group(2).lower()
+        return variant_volume,variant_volume_unit
         
     def get_max_page(self, base_url: str) -> int:
         page = 1
@@ -205,7 +220,7 @@ class HarrodsScraper(BaseScraper):
             soup = self.get(f"{base_url}?page={page}")
             
             next_button = None
-            pagination_buttons = soup.select('[data-test-id="paginationButton"]')
+            pagination_buttons = soup.select(BUTTON_MORE_PAGE)
             
             for button in pagination_buttons:
                 if 'next' in button.get_text().lower():
@@ -219,7 +234,7 @@ class HarrodsScraper(BaseScraper):
    
    
 
-    def load_all_product_by_url(self, base_url: str, use_cache=True):
+    def load_all_product_by_url(self, base_url: str,gender: str, use_cache=True):
         fully_loaded = lambda _: self.find_all_by_attribute(
             "data-test-id", "product-item"
         )
@@ -227,11 +242,11 @@ class HarrodsScraper(BaseScraper):
         for page in range(1, max_page + 1):
             self.get(
                 f"{base_url}?page={page}",
-                use_cache=use_cache,
                 condition=fully_loaded,
                 timeout=10,
+                use_cache=use_cache
             )
-            products = self.soup.select('article[data-test-id="product-item"]')
+            products = self.soup.select(LIST_PRODUCT_SELECTOR)
             logger.info("Page %s have %s products.", page, len(products))
 
             for product in products:
@@ -246,7 +261,7 @@ class HarrodsScraper(BaseScraper):
                     name=name,
                     brand=brand,
                     line="Parfum",
-                    gender="All",
+                    gender=gender,
                     raw_link=full_href,
                 )
                 self._all_loaded_products.add(product_obj)
@@ -260,7 +275,7 @@ class HarrodsScraper(BaseScraper):
                 )
 
     def get_product_name(self, product):
-        name_tag = product.select_one('p[data-test-id="product-card-product-name"]')
+        name_tag = product.select_one(PRODUCT_NAME_SELECTOR)
         if name_tag:
             raw_name = name_tag.get_text(strip=True)
             name = re.sub(r"\s*\(\d+\s*ml\)$", "", raw_name, flags=re.IGNORECASE)
@@ -269,22 +284,26 @@ class HarrodsScraper(BaseScraper):
         return name
 
     def get_product_brand(self, product):
-        brand_tag = product.select_one('p[data-test-id="headline"]')
+        brand_tag = product.select_one(PRODUCT_BRAND_SELECTOR)
         brand = brand_tag.get_text(strip=True) if brand_tag else "N/A"
         return brand
 
     def get_full_href(self, product):
-        href_tag = product.select_one("a[href]")
+        href_tag = product.select_one(PRODUCT_URL_SELECTOR)
         href = href_tag["href"] if href_tag else "N/A"
         full_href = URL + href
         return full_href
 
     def get_product_id(self, product):
-        product_id = product.get("data-product-card-id")
+        product_id = product.get(PRODUCT_ID_SELECTOR)
         return product_id
 
     def load_all_product(self):
-        self.load_all_product_by_url(PRODUCT_LIST, False)
+        self.load_all_product_by_url(PRODUCT_LIST_FAMALE,gender="Female")
+        logger.info("Move to product male!")
+        self.load_all_product_by_url(PRODUCT_LIST_MALE,gender="Male")
+        logger.info("Move to product unisex!")
+        self.load_all_product_by_url(PRODUCT_LIST_UNISEX,gender="All")
 
     def validate_all_products(self):
         self.load_all_product()
